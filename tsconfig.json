@@ -23,11 +23,24 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": [ "src/*"],
-      "@/assets*": [ "src/assets/*"],
-      "@components/*": [ "src/components/*"],
-      "@composables/*": [ "src/composables/*"],
-      "@utils/*": [ "src/utils/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/assets*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@composables/*": [
+        "src/composables/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
     }
   },
   "references": [

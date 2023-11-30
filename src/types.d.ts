@@ -1,8 +1,8 @@
 export interface Task {
-  title: string
   id: number
-
-  completed: boolean
-  tags?: string[]
+  title: string
   description?: string
+  dueDate?: Date
+  tags?: string[]
+  completed?: boolean
 }
