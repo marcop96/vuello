@@ -1,5 +1,4 @@
 import { ref } from 'vue'
-
 import type { Task } from '@/types'
 
 const tasks = ref<Task[]>([])
@@ -14,5 +13,11 @@ export function useTasks() {
     tasks.value.push(task)
   }
 
-  return { addTask, tasks }
+  const removeTask = (id: number) => {
+    console.log((id))
+    const index = tasks.value.findIndex(task => task.id === id)
+    tasks.value.splice(index, 1)
+  }
+
+  return { tasks, addTask, removeTask }
 }
