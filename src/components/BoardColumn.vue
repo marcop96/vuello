@@ -2,7 +2,11 @@
 import TaskCard from '@/components/TaskCard.vue';
 
 function createTask() {
-  return typeof <TaskCard />
+  console.log(('createtask'))
+}
+
+function openTask() {
+  console.log('open task')
 }
 </script>
 
@@ -12,7 +16,7 @@ function createTask() {
       Column Title
     </h2>
     <div>
-      <TaskCard />
+      <TaskCard :onclick="openTask" />
     </div>
     <button :onclick="createTask">+</button>
   </main>
