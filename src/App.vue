@@ -1,14 +1,14 @@
 <script setup lang="ts">
-
+import BoardColumn from '@/components/BoardColumn.vue';
+import DashBoardMenu from '@/components/DashboardMenu.vue';
+import NavBar from '@/components/NavBar.vue';
 </script>
 
 <template>
-  <nav class="bg-red h-50px w-screen flex items-center justify-center w-1 text-white">TROLO</nav>
+  <NavBar />
 
   <main grid grid-cols-4>
-    <div w- bg-red h-screen shadow-xl shadow-black rounded p-3 items-center justify-center>DASHBOARD</div>
-    <div>COLUMNA 2</div>
-    <div>COLUMNA 2</div>
-    <div>COLUMNA 2</div>
+    <DashBoardMenu />
+    <BoardColumn />
   </main>
 </template>
