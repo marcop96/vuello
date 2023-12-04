@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import type { Task } from '@/types'
 
 const tasks = ref<Task[]>([])
+const selectedTask = ref<Task | null>(null)
 
 export function useTasks() {
   const addTask = (title: string) => {
@@ -14,10 +15,15 @@ export function useTasks() {
   }
 
   const removeTask = (id: number) => {
-    console.log((id))
     const index = tasks.value.findIndex(task => task.id === id)
     tasks.value.splice(index, 1)
   }
 
-  return { tasks, addTask, removeTask }
+  const selectTask = (id: number) => {
+    // add selectedTask to a variable, pass it to the component
+    selectedTask.value = tasks.value.find(task => task.id === id) || null
+    console.log((selectedTask.value))
+  }
+
+  return { tasks, addTask, removeTask, selectTask, selectedTask }
 }

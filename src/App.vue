@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import BoardColumn from '@/components/BoardColumn.vue';
-import DashBoardMenu from '@/components/DashboardMenu.vue';
-import NavBar from '@/components/NavBar.vue';
+import BoardColumn from '@/components/BoardColumn.vue'
+import DashBoardMenu from '@/components/DashboardMenu.vue'
+import NavBar from '@/components/NavBar.vue'
+import TaskDetailsModal from '@/components/TaskDetailsModal.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import NavBar from '@/components/NavBar.vue';
 
   <main grid grid-cols-4>
     <DashBoardMenu />
+    <TaskDetailsModal />
     <BoardColumn />
   </main>
 </template>
