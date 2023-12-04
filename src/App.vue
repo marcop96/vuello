@@ -8,9 +8,9 @@ import TaskDetailsModal from '@/components/TaskDetailsModal.vue'
 <template>
   <NavBar />
 
+  <TaskDetailsModal />
   <main grid grid-cols-4>
     <DashBoardMenu />
-    <TaskDetailsModal />
     <BoardColumn />
   </main>
 </template>

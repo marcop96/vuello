@@ -20,9 +20,7 @@ export function useTasks() {
   }
 
   const selectTask = (id: number) => {
-    // add selectedTask to a variable, pass it to the component
     selectedTask.value = tasks.value.find(task => task.id === id) || null
-    console.log((selectedTask.value))
   }
 
   return { tasks, addTask, removeTask, selectTask, selectedTask }
