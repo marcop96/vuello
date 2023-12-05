@@ -7,9 +7,13 @@ const selectedTask = ref<Task | null>(null)
 export function useTasks() {
   const addTask = (title: string) => {
     const task = {
-      title,
       id: tasks.value.length + 1,
+      title,
+      description: '',
       completed: false,
+      tags: [],
+      dueDate: new Date(),
+
     }
     tasks.value.push(task)
   }

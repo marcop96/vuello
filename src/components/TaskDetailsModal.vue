@@ -7,8 +7,6 @@ export default defineComponent({
   setup() {
     const { selectedTask } = useTasks()
     const showModal = ref(selectedTask.value !== null)
-
-    // Watch for changes in selectedTask and update showModal
     watch(selectedTask, (newValue) => {
       showModal.value = newValue !== null
     })
@@ -17,10 +15,20 @@ export default defineComponent({
       selectedTask.value = null
     }
 
+    const toggleCompleted = () => {
+      if (!selectedTask.value)
+        return
+      selectedTask.value.completed = !selectedTask.value.completed
+    }
     return {
       showModal,
-      title: selectedTask.value?.title,
+      selectedTask,
+      // title: selectedTask.value?.title,
+      // completed: selectedTask.value?.completed,
+      // tags: selectedTask.value?.tags,
+      // description: selectedTask.value?.description,
       closeModal,
+      toggleCompleted,
     }
   },
 })
@@ -28,16 +36,16 @@ export default defineComponent({
 
 <template>
   <div v-if="showModal" class="modal-overlay">
-    <div class="modal">
+    <div class="modal" w-3xl>
       <div class="modal-header flex justify-between  items-center mb-4">
-        <h2 class="text-lg font-bold m-0">title</h2>
+        <h2 class="text-lg font-bold m-0">{{ selectedTask?.title }}</h2>
         <button class="text-gray-600 hover:text-gray-800 border-0 cursor-pointer font-18px" @click="closeModal">
           &times;
         </button>
       </div>
       <div class="modal-content" mt-16px>
-        content
-        <slot />
+        <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl />
+        <div> TAGS: {{ selectedTask?.tags }}</div>
       </div>
     </div>
   </div>
