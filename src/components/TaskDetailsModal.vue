@@ -5,8 +5,7 @@ import { useTasks } from '@/store/useTasks'
 export default defineComponent({
   name: 'TaskDetailsModal',
   setup() {
-    const { selectedTask } = useTasks()
-    const tags = ref(['easy', 'hard', 'medium'])
+    const { selectedTask, tags } = useTasks()
     const showModal = ref(selectedTask.value !== null)
     watch(selectedTask, (newValue) => {
       showModal.value = newValue !== null
@@ -14,6 +13,13 @@ export default defineComponent({
 
     const closeModal = () => {
       selectedTask.value = null
+    }
+    const selectedTagHandler = (tag: string) => {
+      if (selectedTask.value?.tags.includes(tag)) {
+      }
+      else {
+        selectedTask.value.tags?.push(tag)
+      }
     }
 
     const toggleCompleted = () => {
@@ -24,13 +30,10 @@ export default defineComponent({
     return {
       showModal,
       selectedTask,
-      // title: selectedTask.value?.title,
-      // completed: selectedTask.value?.completed,
-      // tags: selectedTask.value?.tags,
-      // description: selectedTask.value?.description,
-      closeModal,
-      toggleCompleted,
       tags,
+      closeModal,
+      selectedTagHandler,
+      toggleCompleted,
     }
   },
 })
@@ -54,9 +57,15 @@ export default defineComponent({
           </div>
           <div class="flex items-center">
             <label class="mr-8px">Due Date</label>
+
             <input type="date">
           </div>
-          <div> TAGS: <select><option v-for="tag in tags" :key="tag">{{ tag }}</option></select></div>
+          <div>
+            TAGS: {{ selectedTask.tags }}
+            <select v-model="selectedTag" @change="selectedTagHandler(selectedTag)">
+              <option v-for="tag in tags" :key="tag" :value="tag">{{ tag }}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
