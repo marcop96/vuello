@@ -14,10 +14,8 @@ function viewTask() {
 
 <template>
   <div :class="!task.completed ? 'bg-red' : 'bg-green'" class="h-max rounded-5 shadow-sm text-center">
-    <h3 hover:cursor-pointer hover:bg-blue-5 hover:rounded-xl @click="viewTask">{{ task.title }}</h3>
-    <p>
-      {{ task.id }}
-    </p>
-    <button @click="removeTask(task.id)">X</button>
+    <h3 :class="!task.completed ? 'hover:bg-red-5' : 'hover:bg-green-5'" hover:cursor-pointer hover:bg-blue-5 hover:rounded-xl @click="viewTask">{{ task.title }}</h3>
+
+    <button @click="removeTask(task.id)">x</button>
   </div>
 </template>
