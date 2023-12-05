@@ -7,6 +7,7 @@ export default defineComponent({
   setup() {
     const { selectedTask, tags } = useTasks()
     const showModal = ref(selectedTask.value !== null)
+
     watch(selectedTask, (newValue) => {
       showModal.value = newValue !== null
     })
@@ -14,11 +15,14 @@ export default defineComponent({
     const closeModal = () => {
       selectedTask.value = null
     }
+
     const selectedTagHandler = (tag: string) => {
-      if (selectedTask.value?.tags.includes(tag)) {
+      if (selectedTask.value?.tags?.includes(tag)) {
+        // Handle the case when the tag is already included
       }
       else {
-        selectedTask.value.tags?.push(tag)
+        // Push the tag to the tags array
+        selectedTask.value?.tags?.push(tag)
       }
     }
 
@@ -27,6 +31,7 @@ export default defineComponent({
         return
       selectedTask.value.completed = !selectedTask.value.completed
     }
+
     return {
       showModal,
       selectedTask,
@@ -57,7 +62,6 @@ export default defineComponent({
           </div>
           <div class="flex items-center">
             <label class="mr-8px">Due Date</label>
-
             <input type="date">
           </div>
           <div>
