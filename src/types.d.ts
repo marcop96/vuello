@@ -4,7 +4,7 @@
 
 export interface Tag {
   title: string
-  color: string
+  bg: string
 }
 
 export interface Task {

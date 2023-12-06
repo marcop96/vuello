@@ -5,20 +5,21 @@ import type { Tag } from '@/types'
 
 const { selectedTask, tags } = useTasks()
 
-const selectedTag = ref('')
+const selectedTag = ref<Tag | null>(null)
 const closeModal = () => {
   selectedTask.value = null
 }
 
-const selectedTagHandler = (tag: Tag) => {
-  if (selectedTask.value?.tags?.includes(tag)) {
-    // Handle the case when the tag is already included
-    selectedTask.value.tags = selectedTask.value.tags.filter(t => t !== tag)
-  }
-  else {
-    // Push the tag to the tags array
-    selectedTask.value?.tags?.push(tag)
-  }
+const onChangeHandler = (tag: Tag) => {
+  selectedTask.value?.tags.push(tag)
+  // if (selectedTask.value?.tags.includes(tag)) {
+  //   // Handle the case when the tag is already included
+  //   selectedTask.value.tags = selectedTask.value.tags.filter(t => t.title !== tag.title)
+  // }
+  // else {
+  //   // Push the tag to the tags array
+  //   selectedTask.value?.tags?.push(tag)
+  // }
 }
 
 const filteredTags = computed(() => {
@@ -44,21 +45,19 @@ const toggleCompleted = () => {
           &times;
         </button>
       </div>
-      <div class="modal-content" mt-16px>
+      <div class="modal-content">
         <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
         <div class="flex justify-between items-center mt-16px">
           <div class="flex items-center">
             <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
             <label class="ml-8px">Completed</label>
           </div>
-          <div class="flex items-center">
-            <label class="mr-8px">Due Date WIP</label>
-            <input type="date">
-          </div>
+
           <div>
-            <div v-for="tag in selectedTask.tags" id="tags" :key="tag.title"> tag{{ tag }}</div>
-            <select v-model="selectedTag" @change="selectedTagHandler(selectedTag)">
-              <option v-for="tag in filteredTags" :key="tag.title" :value="tag.title">{{ tag.title }}</option>
+            <div v-for="tag in selectedTask.tags" id="tags" :key="tag.title" :class="tag.bg">{{ tag.title }}</div>
+
+            <select :disabled="filteredTags.length === 0" @change="$e => console.log($e.target) ">
+              <option v-for="(tag, index) in filteredTags" :key="index" :value="tag">{{ tag }}</option>
             </select>
           </div>
         </div>
