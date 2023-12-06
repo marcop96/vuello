@@ -1,10 +1,12 @@
 // Assuming your types.ts file looks like this
 
 // types.ts
+//
+//
+type TagName = 'Work' | 'Personal' | 'Shopping' | 'Health' | 'Home'
 
 export interface Tag {
-  title: string
-  bg: string
+  title: TagName
 }
 
 export interface Task {

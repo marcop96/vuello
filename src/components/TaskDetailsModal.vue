@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useTasks } from '@/store/useTasks'
 import type { Tag } from '@/types'
+import { useTasks } from '@/store/useTasks'
+import TaskTag from '@/components/TaskTag.vue'
+
+// Variables
+// Methods
+// Computeds
+// Lifecycle Hooks
+// Watchers
 
 const { selectedTask, tags } = useTasks()
 
@@ -10,16 +17,10 @@ const closeModal = () => {
   selectedTask.value = null
 }
 
-const onChangeHandler = (tag: Tag) => {
-  selectedTask.value?.tags.push(tag)
-  // if (selectedTask.value?.tags.includes(tag)) {
-  //   // Handle the case when the tag is already included
-  //   selectedTask.value.tags = selectedTask.value.tags.filter(t => t.title !== tag.title)
-  // }
-  // else {
-  //   // Push the tag to the tags array
-  //   selectedTask.value?.tags?.push(tag)
-  // }
+const toggleCompleted = () => {
+  if (!selectedTask.value)
+    return
+  selectedTask.value.completed = !selectedTask.value.completed
 }
 
 const filteredTags = computed(() => {
@@ -28,12 +29,6 @@ const filteredTags = computed(() => {
 
   return tags.value.filter((tag: Tag) => !selectedTask.value?.tags?.includes(tag))
 })
-
-const toggleCompleted = () => {
-  if (!selectedTask.value)
-    return
-  selectedTask.value.completed = !selectedTask.value.completed
-}
 </script>
 
 <template>
@@ -56,9 +51,10 @@ const toggleCompleted = () => {
           <div>
             <div v-for="tag in selectedTask.tags" id="tags" :key="tag.title" :class="tag.bg">{{ tag.title }}</div>
 
-            <select :disabled="filteredTags.length === 0" @change="$e => console.log($e.target) ">
-              <option v-for="(tag, index) in filteredTags" :key="index" :value="tag">{{ tag }}</option>
+            <select v-model="selectedTag" :disabled="filteredTags.length === 0" multiple>
+              <option v-for="(tag, index) in filteredTags" :key="index" :value="tag.title">{{ tag }}</option>
             </select>
+            <TaskTag v-for="tag in selectedTag" :key="tag" :tag="tag" />
           </div>
         </div>
       </div>
@@ -66,7 +62,7 @@ const toggleCompleted = () => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -83,7 +79,7 @@ const toggleCompleted = () => {
   position: relative;
   max-width: 80%;
   max-height: 80%;
-  padding: 20px;
+  padding: rem(20px);
   border-radius: 8px;
   background: white;
   overflow-y: auto;
