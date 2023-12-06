@@ -34,18 +34,18 @@ const filteredTags = computed(() => {
 <template>
   <div v-if="selectedTask" class="modal-overlay">
     <div class="modal" w-3xl>
-      <div class="modal-header flex justify-between items-center mb-4">
-        <textarea v-model="selectedTask.title" class="text-lg font-bold m-0 h-25px" resize-none />
-        <button class="text-gray-600 hover:text-gray-800 border-0 cursor-pointer font-18px" @click="closeModal">
+      <div class="modal-header" flex="~ justify-between items-center" mb-4>
+        <textarea v-model="selectedTask.title" text-lg font-bold h-6 resize-none />
+        <button text="lg gray-600 hover:gray-800" border-0 cursor-pointer @click="closeModal">
           &times;
         </button>
       </div>
       <div class="modal-content">
         <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
-        <div class="flex justify-between items-center mt-16px">
+        <div flex="~ justify-between items-center" mt-4>
           <div class="flex items-center">
             <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
-            <label class="ml-8px">Completed</label>
+            <label ml-2>Completed</label>
           </div>
 
           <div>
