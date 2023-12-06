@@ -14,13 +14,12 @@ const tags = ref([
 
 export function useTasks() {
   const addTask = (title: string) => {
-    const task = {
+    const task: Task = {
       id: tasks.value.length + 1,
       title,
       description: '',
       completed: false,
       tags: [],
-      dueDate: new Date(),
 
     }
     tasks.value.push(task)
