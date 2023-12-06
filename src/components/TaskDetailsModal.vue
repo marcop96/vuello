@@ -1,53 +1,34 @@
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+<script setup lang="ts">
 import { useTasks } from '@/store/useTasks'
 
-export default defineComponent({
-  name: 'TaskDetailsModal',
-  setup() {
-    const { selectedTask, tags } = useTasks()
-    const showModal = ref(selectedTask.value !== null)
+const { selectedTask, tags } = useTasks()
 
-    watch(selectedTask, (newValue) => {
-      showModal.value = newValue !== null
-    })
+const closeModal = () => {
+  selectedTask.value = null
+}
 
-    const closeModal = () => {
-      selectedTask.value = null
-    }
+const selectedTagHandler = (tag: string) => {
+  if (selectedTask.value?.tags?.includes(tag)) {
+    // Handle the case when the tag is already included
+    selectedTask.value.tags = selectedTask.value.tags.filter(t => t !== tag)
+  }
+  else {
+    // Push the tag to the tags array
+    selectedTask.value?.tags?.push(tag)
+  }
+}
 
-    const selectedTagHandler = (tag: string) => {
-      if (selectedTask.value?.tags?.includes(tag)) {
-        // Handle the case when the tag is already included
-      }
-      else {
-        // Push the tag to the tags array
-        selectedTask.value?.tags?.push(tag)
-      }
-    }
-
-    const toggleCompleted = () => {
-      if (!selectedTask.value)
-        return
-      selectedTask.value.completed = !selectedTask.value.completed
-    }
-
-    return {
-      showModal,
-      selectedTask,
-      tags,
-      closeModal,
-      selectedTagHandler,
-      toggleCompleted,
-    }
-  },
-})
+const toggleCompleted = () => {
+  if (!selectedTask.value)
+    return
+  selectedTask.value.completed = !selectedTask.value.completed
+}
 </script>
 
 <template>
-  <div v-if="showModal" class="modal-overlay">
+  <div v-if="selectedTask" class="modal-overlay">
     <div class="modal" w-3xl>
-      <div class="modal-header flex justify-between  items-center mb-4">
+      <div class="modal-header flex justify-between items-center mb-4">
         <textarea v-model="selectedTask.title" class="text-lg font-bold m-0 h-25px" resize-none />
         <button class="text-gray-600 hover:text-gray-800 border-0 cursor-pointer font-18px" @click="closeModal">
           &times;
@@ -67,7 +48,7 @@ export default defineComponent({
           <div>
             TAGS: {{ selectedTask.tags }}
             <select v-model="selectedTag" @change="selectedTagHandler(selectedTag)">
-              <option v-for="tag in tags" :key="tag" :value="tag">{{ tag }}</option>
+              <option v-for="tag in tags" :key="tag.title" :value="tag.title">{{ tag.title }}</option>
             </select>
           </div>
         </div>
