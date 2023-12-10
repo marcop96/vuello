@@ -26,17 +26,24 @@ const toggleCompleted = () => {
       <div class="modal-header" flex="~ justify-between items-center" mb-4>
         <textarea v-model="selectedTask.title" text-lg font-bold h-6 resize-none />
         <button text="lg gray-600 hover:gray-800" border-0 cursor-pointer @click="closeModal">
-          &times;
-        </button>
-      </div>
-      <div class="modal-content">
-        <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
-        <div flex="~ justify-between items-center" mt-4>
-          <div class="flex items-center">
-            <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
-            <label ml-2>Completed</label>
+          <div class="modal-header" flex="~ justify-between items-center" mb-4>
+            <textarea v-model="selectedTask.title" text-lg font-bold h-6 resize-none />
+            <button text="lg gray-600 hover:gray-800" border-0 cursor-pointer @click="closeModal">
+              &times;
+            </button>
           </div>
-        </div>
+          <div class="modal-content">
+            <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
+            <div flex="~ justify-between items-center" mt-4>
+              <div flex="~ justify-between items-center" mt-4>
+                <div class="flex items-center">
+                  <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
+                  <label ml-2>Completed</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
       </div>
     </div>
   </div>
