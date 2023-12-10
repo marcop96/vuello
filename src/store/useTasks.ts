@@ -4,15 +4,6 @@ import type { Task } from '@/types'
 const tasks = ref<Task[]>([])
 const selectedTask = ref<Task | null>(null)
 
-const tags = ref([
-  { title: 'Work', bg: 'bg-green' },
-  { title: 'Personal', bg: 'bg-blue-5' },
-  { title: 'Shopping', bg: 'bg-yellow-5' },
-  { title: 'Health', bg: 'bg-red-5' },
-  { title: 'Home', bg: 'bg-purple-5' },
-
-])
-
 export function useTasks() {
   const addTask = (title: string) => {
     const task: Task = {
@@ -20,7 +11,6 @@ export function useTasks() {
       title,
       description: '',
       completed: false,
-      tags: [],
 
     }
     tasks.value.push(task)
@@ -35,5 +25,5 @@ export function useTasks() {
     selectedTask.value = tasks.value.find(task => task.id === id) || null
   }
 
-  return { tasks, addTask, removeTask, selectTask, selectedTask, tags }
+  return { tasks, addTask, removeTask, selectTask, selectedTask }
 }
