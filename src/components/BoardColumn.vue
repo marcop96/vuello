@@ -7,6 +7,8 @@ const { addTask, tasks } = useTasks()
 const newTaskTitle = ref('')
 
 function createTask() {
+  if (newTaskTitle.value === '')
+    return
   addTask(newTaskTitle.value)
   newTaskTitle.value = ''
 }
