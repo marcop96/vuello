@@ -15,17 +15,15 @@ const toggleCompleted = () => {
 </script>
 
 <template>
-  <div v-if="selectedTask" class="modal-overlay">
-    <div class="modal" w-3xl>
-      <div class="modal-header flex justify-between items-center mb-4">
-        <textarea v-model="selectedTask.title" class="text-lg font-bold m-0 h-25px" resize-none />
-        <button class="text-gray-600 hover:text-gray-800 border-0 cursor-pointer font-18px" @click="closeModal">
-          &times;
-        </button>
+  <div v-if="selectedTask" class="overlay">
+    <div class="modal" style="max-width: 80%; max-height: 80%;">
+      <div class="modal-header">
+        <textarea v-model="selectedTask.title" placeholder="Task Title" class="text-lg font-bold h-6 resize-none" />
+        <button class="close-button" @click="closeModal">&times;</button>
       </div>
-      <div class="modal-content" mt-16px>
-        <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
-        <div class="flex justify-between items-center mt-16px">
+      <div class="modal-content">
+        <textarea v-model="selectedTask.description" placeholder="Description" class="bg-gray w-full resize-none" />
+        <div class="completion-checkbox" flex="~ justify-between items-center" mt-4>
           <div class="flex items-center">
             <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
             <label class="ml-8px">Completed</label>
@@ -37,8 +35,8 @@ const toggleCompleted = () => {
   </div>
 </template>
 
-<style scoped>
-.modal-overlay {
+<style scoped lang="scss">
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,11 +50,28 @@ const toggleCompleted = () => {
 
 .modal {
   position: relative;
-  max-width: 80%;
-  max-height: 80%;
-  padding: 20px;
+  padding: 1.25rem; // Use rem or em for better responsiveness
   border-radius: 8px;
   background: white;
   overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  border: 0;
+  background: none;
+  color: gray;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.completion-checkbox {
+  margin-top: 1rem;
+
 }
 </style>
