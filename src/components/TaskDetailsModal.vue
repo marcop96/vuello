@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { useTasks } from '@/store/useTasks'
 
-// Variables
-// Methods
-// Computeds
-// Lifecycle Hooks
-// Watchers
-
 const { selectedTask } = useTasks()
 
 const closeModal = () => {
@@ -21,36 +15,27 @@ const toggleCompleted = () => {
 </script>
 
 <template>
-  <div v-if="selectedTask" class="modal-overlay">
-    <div class="modal" w-3xl>
-      <div class="modal-header" flex="~ justify-between items-center" mb-4>
-        <textarea v-model="selectedTask.title" text-lg font-bold h-6 resize-none />
-        <button text="lg gray-600 hover:gray-800" border-0 cursor-pointer @click="closeModal">
-          <div class="modal-header" flex="~ justify-between items-center" mb-4>
-            <textarea v-model="selectedTask.title" text-lg font-bold h-6 resize-none />
-            <button text="lg gray-600 hover:gray-800" border-0 cursor-pointer @click="closeModal">
-              &times;
-            </button>
+  <div v-if="selectedTask" class="overlay">
+    <div class="modal" style="max-width: 80%; max-height: 80%;">
+      <div class="modal-header">
+        <textarea v-model="selectedTask.title" placeholder="Task Title" class="text-lg font-bold h-6 resize-none" />
+        <button class="close-button" @click="closeModal">&times;</button>
+      </div>
+      <div class="modal-content">
+        <textarea v-model="selectedTask.description" placeholder="Description" class="bg-gray w-full resize-none" />
+        <div class="completion-checkbox" flex="~ justify-between items-center" mt-4>
+          <div class="flex items-center">
+            <input v-model="selectedTask.completed" type="checkbox" @change="toggleCompleted">
+            <label class="ml-2">Completed</label>
           </div>
-          <div class="modal-content">
-            <textarea v-model="selectedTask.description" placeholder="description" bg-gray w-xl resize-none />
-            <div flex="~ justify-between items-center" mt-4>
-              <div flex="~ justify-between items-center" mt-4>
-                <div class="flex items-center">
-                  <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
-                  <label ml-2>Completed</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.modal-overlay {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -64,11 +49,28 @@ const toggleCompleted = () => {
 
 .modal {
   position: relative;
-  max-width: 80%;
-  max-height: 80%;
-  padding: rem(20px);
+  padding: 1.25rem; // Use rem or em for better responsiveness
   border-radius: 8px;
   background: white;
   overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  border: 0;
+  background: none;
+  color: gray;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.completion-checkbox {
+  margin-top: 1rem;
+
 }
 </style>
