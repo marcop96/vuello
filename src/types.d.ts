@@ -5,3 +5,10 @@ export interface Task {
   completed: boolean
 
 }
+
+export interface Column {
+  id: number
+  title: string
+  tasks?: Task[]
+
+}
