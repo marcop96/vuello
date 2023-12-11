@@ -4,7 +4,7 @@
 
 export interface Tag {
   title: string
-  color: string
+  bg: string
 }
 
 export interface Task {
@@ -12,5 +12,5 @@ export interface Task {
   title: string
   description: string
   completed: boolean
-  tags: Tag[]
+
 }
