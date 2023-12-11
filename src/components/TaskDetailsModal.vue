@@ -1,32 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { useTasks } from '@/store/useTasks'
-import type { Tag } from '@/types'
 
-const { selectedTask, tags } = useTasks()
+const { selectedTask } = useTasks()
 
-const selectedTag = ref('')
 const closeModal = () => {
   selectedTask.value = null
 }
-
-const selectedTagHandler = (tag: Tag) => {
-  if (selectedTask.value?.tags?.includes(tag)) {
-    // Handle the case when the tag is already included
-    selectedTask.value.tags = selectedTask.value.tags.filter(t => t !== tag)
-  }
-  else {
-    // Push the tag to the tags array
-    selectedTask.value?.tags?.push(tag)
-  }
-}
-
-const filteredTags = computed(() => {
-  if (!selectedTask.value?.tags)
-    return tags.value
-
-  return tags.value.filter((tag: Tag) => !selectedTask.value?.tags?.includes(tag))
-})
 
 const toggleCompleted = () => {
   if (!selectedTask.value)
@@ -51,16 +30,7 @@ const toggleCompleted = () => {
             <input v-model="selectedTask.completed" type="checkbox" @click="toggleCompleted">
             <label class="ml-8px">Completed</label>
           </div>
-          <div class="flex items-center">
-            <label class="mr-8px">Due Date WIP</label>
-            <input type="date">
-          </div>
-          <div>
-            <div v-for="tag in selectedTask.tags" id="tags" :key="tag.title"> tag{{ tag }}</div>
-            <select v-model="selectedTag" @change="selectedTagHandler(selectedTag)">
-              <option v-for="tag in filteredTags" :key="tag.title" :value="tag.title">{{ tag.title }}</option>
-            </select>
-          </div>
+          <div />
         </div>
       </div>
     </div>
