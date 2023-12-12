@@ -37,8 +37,8 @@ export function useTasks() {
     }
   }
 
-  const selectTask = (id: number, column: Column) => {
-    const targetColumn = columns.value.find((c: Column) => c.id === column.id)
+  const selectTask = (id: number, columnId: number) => {
+    const targetColumn = columns.value.find((c: Column) => c.id === columnId)
     selectedTask.value = targetColumn?.tasks.find((t: Task) => t.id === id) || null
   }
 
