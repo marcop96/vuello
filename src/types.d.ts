@@ -5,10 +5,15 @@ export interface Task {
   completed: boolean
 
 }
+export interface Columns {
+  id: number
+  column: Column[]
 
+}
 export interface Column {
+
   id: number
   title: string
-  tasks?: Task[]
+  tasks: Task[]
 
 }

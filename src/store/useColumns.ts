@@ -6,10 +6,18 @@ const columns = ref<Column[]>([])
 export function useColumns() {
   const selectedColumn = ref<Column | null>(null)
 
-  const addColumn = () => {
-    const column: Column = { title: 'title', id: columns.value.length + 1, tasks: [] }
+  const addColumn = (title: string) => {
+    const column: Column = {
+      id: columns.value.length + 1,
+      title,
+      tasks: [],
+    }
 
     columns.value.push(column)
+
+    return {
+      column,
+    }
   }
 
   const deleteColumn = (id: number) => {
