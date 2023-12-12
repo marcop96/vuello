@@ -22,17 +22,24 @@ export function useTasks() {
 
     else
       console.error(`Column with id ${columns} not found.`)
-
-    // columns.value[targetColumn!.id].push(task)
   }
 
-  const removeTask = (id: number) => {
-    const index = tasks.value.findIndex(task => task.id === id)
-    tasks.value.splice(index, 1)
+  const removeTask = (id: number, columnId: number) => {
+    const targetColumn = columns.value.find((c: Column) => c.id === columnId)
+
+    if (targetColumn) {
+      const targetTask = targetColumn.tasks.find((t: Task) => t.id === id)
+
+      if (targetTask) {
+        const index = targetColumn.tasks.indexOf(targetTask)
+        targetColumn.tasks.splice(index, 1)
+      }
+    }
   }
 
-  const selectTask = (id: number) => {
-    selectedTask.value = tasks.value.find(task => task.id === id) || null
+  const selectTask = (id: number, column: Column) => {
+    const targetColumn = columns.value.find((c: Column) => c.id === column.id)
+    selectedTask.value = targetColumn?.tasks.find((t: Task) => t.id === id) || null
   }
 
   return { tasks, addTask, removeTask, selectTask, selectedTask }

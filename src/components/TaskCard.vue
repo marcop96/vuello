@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import type { Task } from '@/types'
+import type { Column, Task } from '@/types'
 import { useTasks } from '@/store/useTasks'
 
 const props = defineProps<{
   task: Task
+  columnId: number
 }>()
 const { removeTask, selectTask } = useTasks()
 
 function viewTask() {
+  console.log((props.task))
   selectTask(props.task.id)
 }
 </script>
@@ -16,7 +18,7 @@ function viewTask() {
   <div :class="!task.completed ? 'bg-red' : 'bg-green'" class="h-max rounded-5 shadow-sm text-center">
     <h3 :class="!task.completed ? 'hover:bg-red-5' : 'hover:bg-green-5'" hover:cursor-pointer hover:bg-blue-5 hover:rounded-xl @click="viewTask">{{ task.title }}</h3>
 
-    <button @click="removeTask(task.id)">
+    <button @click="removeTask(task.id, columnId)">
       &times;
     </button>
   </div>
