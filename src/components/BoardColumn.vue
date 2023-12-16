@@ -44,7 +44,7 @@ function updateTitleHandler() {
     <div id="tasks">
       <TaskCard v-for="task in column.tasks" :key="task.id" :task="task" :column-id="props.column.id" />
     </div>
-    <input v-model="newTaskTitle" type="text" w-full placeholder="Task Title">
+    <input v-model="newTaskTitle" type="text" w-full placeholder="Task Title" @keydown.enter="createTask">
     <button @click="createTask">Add Task</button>
   </main>
 </template>
