@@ -27,18 +27,19 @@ function updateTitleHandler() {
 
   updateTitle(props.column.id, columnTitle.value)
   columnTitle.value = ''
+  // when user presses enter key update title
+  // when user clicks outside of input update title
 }
 </script>
 
 <template>
   <main class="h-max w-40 m-4 p-2 rounded-5 bg-red shadow-xl shadow-sm text-center">
     <div v-if="editTitle" w-full flex>
-      <input v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center">
-      <button @click="updateTitleHandler">&#10004;</button>
+      <input v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center" @keydown.enter="updateTitleHandler">
+      <button>&#10004; </button>
     </div>
     <div v-else w-full flex justify-between>
-      <h2 class="w-full text-center text-2xl">{{ props.column.title }}</h2>
-      <button class="w-auto" @click="updateTitleHandler">&#9997;</button>
+      <h2 class="w-full text-center text-2xl" @click="updateTitleHandler">{{ props.column.title }}</h2>
     </div>
     <div id="tasks">
       <TaskCard v-for="task in column.tasks" :key="task.id" :task="task" :column-id="props.column.id" />
