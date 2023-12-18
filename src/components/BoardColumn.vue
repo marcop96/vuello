@@ -22,10 +22,12 @@ function createTask() {
   newTaskTitle.value = ''
 }
 function updateColumnTitleHandler() {
+  // doesnt work without timeout
   setTimeout(() => {
     columnTitleInput.value?.focus()
-  }, 5)
+  }, 1)
   editableColumnTitle.value = !editableColumnTitle.value
+
   if (columnTitle.value === '')
     return
 
@@ -35,7 +37,7 @@ function updateColumnTitleHandler() {
 </script>
 
 <template>
-  <main class="h-max w-40 m-4 p-2 rounded-5 bg-red shadow-xl shadow-sm text-center">
+  <main class="h-max w-72 m-4 p-2 rounded-5 bg-red shadow-xl shadow-sm text-center">
     <div v-if="editableColumnTitle" w-full flex>
       <input ref="columnTitleInput" v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center" @keydown.enter="updateColumnTitleHandler">
       <button>&#10004; </button>
