@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useTasks } from '@store/useTasks'
 import { ref } from 'vue'
-import { useFocus } from '@vueuse/core'
-import TaskCard from '@/components/TaskCard.vue'
+import { useTasks } from '@store/useTasks'
+
 import type { Column } from '@/types'
 import { useColumns } from '@/store/useColumns'
+import TaskCard from '@/components/TaskCard.vue'
 
 const props = defineProps<{
   column: Column
@@ -14,7 +14,7 @@ const { updateTitle } = useColumns()
 const newTaskTitle = ref('')
 const columnTitle = ref('')
 const editableColumnTitle = ref(false)
-
+const columnTitleInput = ref()
 function createTask() {
   if (newTaskTitle.value === '')
     return
@@ -22,6 +22,9 @@ function createTask() {
   newTaskTitle.value = ''
 }
 function updateColumnTitleHandler() {
+  setTimeout(() => {
+    columnTitleInput.value?.focus()
+  }, 5)
   editableColumnTitle.value = !editableColumnTitle.value
   if (columnTitle.value === '')
     return
@@ -34,7 +37,7 @@ function updateColumnTitleHandler() {
 <template>
   <main class="h-max w-40 m-4 p-2 rounded-5 bg-red shadow-xl shadow-sm text-center">
     <div v-if="editableColumnTitle" w-full flex>
-      <input v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center" @keydown.enter="updateColumnTitleHandler">
+      <input ref="columnTitleInput" v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center" @keydown.enter="updateColumnTitleHandler">
       <button>&#10004; </button>
     </div>
     <div v-else w-full flex justify-between>
