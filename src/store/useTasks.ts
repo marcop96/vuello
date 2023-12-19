@@ -7,14 +7,14 @@ const selectedTask = ref<Task | null>(null)
 const { columns } = useColumns()
 export function useTasks() {
   const addTask = (title: string, id: number) => {
+    const targetColumn = columns.value.find((c: Column) => c.id === id)
     const task: Task = {
-      id: tasks.value.length + 1,
+      id: targetColumn!.tasks.length + 1,
       title,
       description: '',
       completed: false,
 
     }
-    const targetColumn = columns.value.find((c: Column) => c.id === id)
 
     if (targetColumn)
 
