@@ -6,13 +6,17 @@ import TaskDetailsModal from '@/components/TaskDetailsModal.vue'
 import { useColumns } from '@/store/useColumns'
 
 const { addColumn, columns } = useColumns()
+/*
+TODO
+- remove button
+*/
 </script>
 
 <template>
   <NavBar />
 
   <TaskDetailsModal />
-  <main grid grid-cols-4>
+  <main grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2>
     <BoardColumn v-for="column in columns" :key="column.id" :column="column" />
 
     <button class="add-column-button" @click="() => addColumn('set title')">+</button>
