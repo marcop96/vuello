@@ -4,7 +4,7 @@ import { useTasks } from '@/store/useTasks'
 
 const props = defineProps<{
   task: Task
-  columnId: number
+  columnId: string
 }>()
 const { removeTask, selectTask } = useTasks()
 function viewTask() {

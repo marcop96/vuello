@@ -6,7 +6,7 @@ const tasks = ref<Task[]>([])
 const selectedTask = ref<Task | null>(null)
 const { columns } = useColumns()
 export function useTasks() {
-  const addTask = (title: string, id: number) => {
+  const addTask = (title: string, id: string) => {
     const targetColumn = columns.value.find((c: Column) => c.id === id)
     const task: Task = {
       id: globalThis.crypto.randomUUID(),
@@ -24,7 +24,7 @@ export function useTasks() {
       console.error(`Column with id ${columns} not found.`)
   }
 
-  const removeTask = (id: number, columnId: number) => {
+  const removeTask = (id: string, columnId: string) => {
     const targetColumn = columns.value.find((c: Column) => c.id === columnId)
 
     if (targetColumn) {
@@ -37,7 +37,7 @@ export function useTasks() {
     }
   }
 
-  const selectTask = (id: number, columnId: number) => {
+  const selectTask = (id: string, columnId: string) => {
     const targetColumn = columns.value.find((c: Column) => c.id === columnId)
     selectedTask.value = targetColumn?.tasks.find((t: Task) => t.id === id) || null
   }
