@@ -42,9 +42,6 @@ function updateColumnTitleHandler() {
       <button @click="deleteColumn(props.column.id)">X</button>
 
       <input ref="columnTitleInput" v-model="columnTitle" :placeholder="columnTitle" class="w-full bg-transparent text-center" @keydown.enter="updateColumnTitleHandler">
-      <button class="text-end" @click="openColumnModal">
-        e
-      </button>
     </div>
     <div v-else w-full flex flex-col justify-between>
       <button @click="deleteColumn(props.column.id)">X</button>
