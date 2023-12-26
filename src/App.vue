@@ -19,6 +19,6 @@ TODO
   <main grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2>
     <BoardColumn v-for="column in columns" :key="column.id" :column="column" />
 
-    <button class="add-column-button" @click="() => addColumn('set title')">+</button>
+    <button class="absolute add-column-button text-3xl" @click="() => addColumn('set title')">+</button>
   </main>
 </template>
