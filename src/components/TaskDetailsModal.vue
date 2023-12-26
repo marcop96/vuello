@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { onClickOutside } from '@vueuse/core'
+import { onMounted, ref } from 'vue'
 import { useTasks } from '@/store/useTasks'
 
 const { selectedTask } = useTasks()
 
 const closeModal = () => {
+  console.log('close modal')
   selectedTask.value = null
 }
 
@@ -12,11 +15,17 @@ const toggleCompleted = () => {
     return
   selectedTask.value.completed = !selectedTask.value.completed
 }
+
+const target = ref(null)
+
+onMounted(() => {
+  onClickOutside(target, () => closeModal())
+})
 </script>
 
 <template>
   <div v-if="selectedTask" class="overlay">
-    <div class="modal" style="max-width: 80%; max-height: 80%;">
+    <div ref="target" class="modal" style="max-width: 80%; max-height: 80%;">
       <div class="modal-header">
         <textarea v-model="selectedTask.title" placeholder="Task Title" class="text-lg font-bold h-6 resize-none" />
         <button class="close-button" @click="closeModal">&times;</button>
