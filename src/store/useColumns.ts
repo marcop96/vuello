@@ -8,7 +8,7 @@ export function useColumns() {
 
   const addColumn = (title: string) => {
     const column: Column = {
-      id: columns.value.length + 1,
+      id: globalThis.crypto.randomUUID(),
       title,
       tasks: [],
     }

@@ -9,7 +9,7 @@ export function useTasks() {
   const addTask = (title: string, id: number) => {
     const targetColumn = columns.value.find((c: Column) => c.id === id)
     const task: Task = {
-      id: targetColumn!.tasks.length + 1,
+      id: globalThis.crypto.randomUUID(),
       title,
       description: '',
       completed: false,

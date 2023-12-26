@@ -1,5 +1,5 @@
 export interface Task {
-  id: number
+  id: string
   title: string
   description: string
   completed: boolean
@@ -12,7 +12,7 @@ export interface Columns {
 }
 export interface Column {
 
-  id: number
+  id: string
   title: string
   tasks: Task[]
 
