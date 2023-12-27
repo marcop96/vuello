@@ -6,7 +6,6 @@ import { useTasks } from '@/store/useTasks'
 const { selectedTask } = useTasks()
 
 const closeModal = () => {
-  console.log('close modal')
   selectedTask.value = null
 }
 
