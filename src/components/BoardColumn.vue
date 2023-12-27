@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useTasks } from '@store/useTasks'
-
+import { onClickOutside } from '@vueuse/core'
 import type { Column } from '@/types'
 import { useColumns } from '@/store/useColumns'
 import TaskCard from '@/components/TaskCard.vue'
@@ -22,7 +22,14 @@ function createTask() {
   newTaskTitle.value = ''
 }
 function updateColumnTitleHandler() {
-  // doesnt work without timeout
+  onClickOutside(columnTitleInput, () => {
+    editableColumnTitle.value = false
+    if (columnTitle.value === '')
+      return
+    updateTitle(props.column.id, columnTitle.value)
+    columnTitle.value = ''
+  })
+
   setTimeout(() => {
     columnTitleInput.value?.focus()
   }, 1)
