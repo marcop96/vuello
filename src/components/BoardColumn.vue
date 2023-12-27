@@ -15,11 +15,18 @@ const newTaskTitle = ref('')
 const columnTitle = ref('')
 const editableColumnTitle = ref(false)
 const columnTitleInput = ref()
+const errorMessage = ref('')
+const errorClass = ref('')
 function createTask() {
-  if (newTaskTitle.value === '')
-    return
-  addTask(newTaskTitle.value, props.column.id)
-  newTaskTitle.value = ''
+  if (newTaskTitle.value === '') {
+    errorMessage.value = 'Task title cannot be empty'
+    errorClass.value = 'outline-red-700 outline-4 outline'
+  }
+  else {
+    addTask(newTaskTitle.value, props.column.id)
+    newTaskTitle.value = ''
+    errorClass.value = ''
+  }
 }
 function updateColumnTitleHandler() {
   onClickOutside(columnTitleInput, () => {
@@ -57,7 +64,7 @@ function updateColumnTitleHandler() {
     <div id="tasks">
       <TaskCard v-for="task in column.tasks" :key="task.id" :task="task" :column-id="props.column.id" />
     </div>
-    <input v-model="newTaskTitle" type="text" rounded-full p-2 w-full placeholder="Task Title" @keydown.enter="createTask">
+    <input v-model="newTaskTitle" :class="errorClass" type="text" rounded-full p-2 w-full placeholder="Task Title" @keydown.enter="createTask">
     <button class="mr-2 my-2 p-2 bg-blue hover:bg-blue-5 w-full rounded-lg" @click="createTask">Add Task</button>
   </main>
 </template>
