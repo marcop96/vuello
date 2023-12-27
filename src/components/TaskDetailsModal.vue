@@ -58,7 +58,7 @@ onMounted(() => {
 
 .modal {
   position: relative;
-  padding: 1.25rem; // Use rem or em for better responsiveness
+  padding: 1.25rem;
   border-radius: 8px;
   background: white;
   overflow-y: auto;

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useTasks } from '@store/useTasks'
 import { onClickOutside } from '@vueuse/core'
+
 import type { Column } from '@/types'
 import { useColumns } from '@/store/useColumns'
 import TaskCard from '@/components/TaskCard.vue'
