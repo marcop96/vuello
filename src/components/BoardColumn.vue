@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useTasks } from '@store/useTasks'
 import { onClickOutside } from '@vueuse/core'
-
+import AddTaskForm from '@/components/AddTaskForm.vue'
 import type { Column } from '@/types'
 import { useColumns } from '@/store/useColumns'
 import TaskCard from '@/components/TaskCard.vue'
@@ -10,26 +9,12 @@ import TaskCard from '@/components/TaskCard.vue'
 const props = defineProps<{
   column: Column
 }>()
-const { addTask } = useTasks()
+
 const { updateTitle, deleteColumn } = useColumns()
-const newTaskTitle = ref('')
 const columnTitle = ref('')
 const editableColumnTitle = ref(false)
 const columnTitleInput = ref()
-const errorMessage = ref('')
-const errorClass = ref('')
 
-function createTask() {
-  if (newTaskTitle.value === '') {
-    errorMessage.value = 'Task title cannot be empty'
-    errorClass.value = 'outline-red-700 outline-4 outline'
-  }
-  else {
-    addTask(newTaskTitle.value, props.column.id)
-    newTaskTitle.value = ''
-    errorClass.value = ''
-  }
-}
 function updateColumnTitleHandler() {
   onClickOutside(columnTitleInput, () => {
     editableColumnTitle.value = false
@@ -66,7 +51,6 @@ function updateColumnTitleHandler() {
     <div id="tasks">
       <TaskCard v-for="task in column.tasks" :key="task.id" :task="task" :column-id="props.column.id" />
     </div>
-    <input v-model="newTaskTitle" :class="errorClass" type="text" rounded-full p-2 w-full placeholder="Task Title" @keydown.enter="createTask">
-    <button class="mr-2 my-2 p-2 bg-blue hover:bg-blue-5 w-full rounded-lg" @click="createTask">Add Task</button>
+    <AddTaskForm :column-id="props.column.id" />
   </main>
 </template>
