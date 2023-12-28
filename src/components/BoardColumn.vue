@@ -18,6 +18,7 @@ const editableColumnTitle = ref(false)
 const columnTitleInput = ref()
 const errorMessage = ref('')
 const errorClass = ref('')
+
 function createTask() {
   if (newTaskTitle.value === '') {
     errorMessage.value = 'Task title cannot be empty'
