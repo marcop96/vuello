@@ -50,7 +50,7 @@ function updateColumnTitleHandler() {
     </div>
     <div id="tasks">
       <TaskCard v-for="task in column.tasks" :key="task.id" :task="task" :column-id="props.column.id" />
+      <AddTaskForm :column-id="props.column.id" />
     </div>
-    <AddTaskForm :column-id="props.column.id" />
   </main>
 </template>
